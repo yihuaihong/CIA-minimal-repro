@@ -141,14 +141,3 @@ MODEL=Llama-3.1-8B-Instruct RUN=multiplication_llama31_8b_static_rs_B TAG=final 
 
 **Reporting Mult:** the causal metric is primary and the probe-based CIA is secondary; on trained models the two can disagree in sign. Report every Mult result as a full row: macro-F1, agreement, tracked rate, B_CoT rate, the four (B_INT, B_CoT) cells, and accuracy. Count a result as a real improvement only when the tracked rate rises, the (0,1) cell falls and accuracy does not collapse. macro-F1 alone is misleading in both directions: it penalizes a model that is almost always faithful, and it rewards a model that degenerates into the (0,0) cell.
 
-## 8. Known caveats
-
-- **TwoHop prompt overlap.** About 4% of the 1800 prompts used for offline TwoHop rollouts also appear in the evaluation test set.
-- **SLURM removed.** The original experiments ran under SLURM. These scripts drop the account, partition and GPU-utilisation settings; every other step, parameter and file name matches the original runs.
-- **Hint base reference.** The `RUN=base` mode of `eval_hint.sh` was added for this package and follows the same pipeline as trained runs. The original experiments produced their base labels with a separate script, so values may differ slightly.
-- **Not included:**
-  - GRPO (online) training.
-  - RS-A and DPO-B. The dataset builders support both: RS-A reads the scored rollout file with `build_rs_dataset.py`, and DPO-B reads the `_faithonly` file with `build_dpo_dataset.py`. Their recipes are not included.
-  - Probe training code.
-  - Code that builds the task datasets from raw data.
-  - Any experimental results.
