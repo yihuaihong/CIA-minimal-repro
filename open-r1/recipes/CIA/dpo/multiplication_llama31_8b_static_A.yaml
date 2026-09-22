@@ -1,0 +1,46 @@
+# CIA DPO — 2-digit Multiplication, offline STATIC arm (S-MULT-STATIC-FULL-v1; labels = S-MULT-EVAL-v2 per rollout)
+
+model_name_or_path: ${SCRATCH}/transformers/Llama-3.1-8B-Instruct
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: sdpa
+
+dataset_name: ${SCRATCH}/open-r1/datasets/Mult2d_static_dpo_A_llama31_8b
+dataset_config: default
+dataset_train_split: train
+dataset_test_split: validation
+
+beta: 0.1
+max_length: 2048
+max_prompt_length: 1024
+loss_type: sigmoid
+
+learning_rate: 5.0e-07
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+num_train_epochs: 1
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+bf16: true
+optim: adamw_bnb_8bit
+
+log_level: info
+logging_first_step: true
+logging_steps: 10
+logging_strategy: steps
+save_strategy: "no"   # full static run: only the final model is evaluated
+save_steps: 100
+save_total_limit: 2
+save_only_model: true
+eval_strategy: "no"
+
+output_dir: ${SCRATCH}/open-r1/cia/multiplication_llama31_8b_static_dpo_A
+overwrite_output_dir: true
+push_to_hub: false
+report_to:
+  - wandb
+wandb_project: cia-dpo
+wandb_run_name: mult-llama31_8b-static-dpo-A

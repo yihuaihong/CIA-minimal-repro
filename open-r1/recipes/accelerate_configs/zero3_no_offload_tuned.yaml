@@ -1,0 +1,38 @@
+compute_environment: LOCAL_MACHINE
+debug: false
+deepspeed_config:
+  deepspeed_multinode_launcher: standard
+  offload_optimizer_device: none
+  offload_param_device: none
+  zero3_init_flag: true
+  zero3_save_16bit_model: true
+  zero_stage: 3
+  # Tuned prefetch/live params to reduce GPU idle waiting for weight gathers.
+  # Costs ~5-10GB more per GPU but pushes util higher. Critical for Gemma 9B
+  # on 2× H100 80GB where bsz=2 / no-grad-checkpoint / ZeRO-2 all OOM.
+  zero_optimization:
+    stage: 3
+    offload_optimizer:
+      device: none
+    offload_param:
+      device: none
+    stage3_prefetch_bucket_size: 1000000000        # 1GB (default 5e8)
+    stage3_param_persistence_threshold: 1000000     # 1M (default 1e5)
+    stage3_max_live_parameters: 3000000000          # 3GB (default 1e9)
+    stage3_max_reuse_distance: 3000000000           # 3GB (default 1e9)
+    stage3_gather_16bit_weights_on_model_save: true
+    contiguous_gradients: true
+    overlap_comm: true
+distributed_type: DEEPSPEED
+downcast_bf16: 'no'
+machine_rank: 0
+main_training_function: main
+mixed_precision: bf16
+num_machines: 1
+num_processes: 2
+rdzv_backend: static
+same_network: true
+tpu_env: []
+tpu_use_cluster: false
+tpu_use_sudo: false
+use_cpu: false
