@@ -1,6 +1,6 @@
 # CIA: minimal code for RS-B, DPO-A and evaluation
 
-This repository contains the code for two offline training methods, **RS-B** and **DPO-A**, and their evaluation on three tasks: **TwoHop**, **Hint** and **Mult**. It is the minimal subset of a larger research codebase needed to run these pipelines, extracted by following the actual import graph of the entry scripts. It contains code only: no data, model weights, probe weights or experimental results.
+This repository contains the code for two training methods, **RS-B** and **DPO-A**, and their evaluation on three tasks: **TwoHop**, **Hint** and **Mult**. It is the minimal subset of a larger research codebase needed to run these pipelines, extracted by following the actual import graph of the entry scripts. It contains code only: no data, model weights, probe weights or experimental results.
 
 A Chinese version of this README is in [README_zh.md](README_zh.md).
 
