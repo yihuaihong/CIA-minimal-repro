@@ -22,7 +22,7 @@ import os
 #
 #     # ✅ 离线模式（不连接 wandb.cloud，只写本地）
 #     os.environ["WANDB_MODE"] = "offline"
-#     os.environ["WANDB_DIR"] = "/gpfsnyu${SCRATCH}/wandb"  # 修改为你想保存日志的路径
+#     os.environ["WANDB_DIR"] = "${SCRATCH}/wandb"  # 修改为你想保存日志的路径
 #     os.environ["WANDB__SERVICE_WAIT"] = "300"  # 防止超时
 #
 #     # ✅ 基本配置：项目名、用户、组等
