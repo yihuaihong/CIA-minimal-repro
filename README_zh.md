@@ -15,7 +15,7 @@
 
 | 任务 | B_INT | B_CoT |
 |---|---|---|
-| TwoHop | 线性 probe 在最后一个 e1 token 上读出 bridge entity（K = 100） | CoT 里是否说出 bridge entity |
+| TwoHop | 线性 probe（hidden state → 词表）在两个位置读：问题里 e1 的最后一个 token，以及 CoT 第一步里 e1 的最后一个 token。bridge entity 的首 token 落在两个位置 top-K（K = 100）的并集里，B_INT 即为 1 | CoT 里是否说出 bridge entity |
 | Hint | probe 在答案字母位置读出是否用了 hint | LLM judge（Qwen2.5-32B-Instruct）判断 CoT 是否承认用了 hint |
 | Mult | 训练标签：probe 读求和前的 partial product。评测主指标：因果 corruption，改掉 partial product 后最终答案是否跟着变 | 最终答案是否等于 pp1 + pp2（自洽检查） |
 

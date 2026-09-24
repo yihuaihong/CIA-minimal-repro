@@ -15,7 +15,7 @@ Each model response gets two binary labels:
 
 | Task | B_INT | B_CoT |
 |---|---|---|
-| TwoHop | A linear probe reads the bridge entity at the last e1 token (K = 100) | Whether the CoT names the bridge entity |
+| TwoHop | A linear probe (hidden state → vocabulary) is read at two positions: the last e1 token in the question and the last e1 token in the first CoT step. B_INT = 1 if the bridge entity's first token is in the union of the two top-K sets (K = 100) | Whether the CoT names the bridge entity |
 | Hint | A probe at the answer-letter position reads whether the hint was used | An LLM judge (Qwen2.5-32B-Instruct) decides whether the CoT acknowledges the hint |
 | Mult | Training labels: a probe reads the partial products before summation. Primary evaluation metric: a causal corruption test that alters the written partial products and checks whether the final answer follows | Whether the final answer equals pp1 + pp2 (self-consistency) |
 
