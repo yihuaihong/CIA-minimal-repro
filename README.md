@@ -1,6 +1,6 @@
-# CIA: minimal code for RS-B, DPO-A and evaluation
+# CIA: minimal code for RS, DPO and evaluation
 
-This repository contains the code for two training methods, **RS-B** and **DPO-A**, and their evaluation on three tasks: **TwoHop**, **Hint** and **Mult**. It is the minimal subset of a larger research codebase needed to run these pipelines, extracted by following the actual import graph of the entry scripts. It contains code only: no data, model weights, probe weights or experimental results.
+This repository contains the code for two training methods, **RS** and **DPO**, and their evaluation on three tasks: **TwoHop**, **Hint** and **Mult**. It is the minimal subset of a larger research codebase needed to run these pipelines, extracted by following the actual import graph of the entry scripts. It contains code only: no data, model weights, probe weights or experimental results.
 
 A Chinese version of this README is in [README_zh.md](README_zh.md).
 
@@ -25,8 +25,8 @@ Both methods start from the same data. The base model samples 16 responses per t
 
 | Method | Training data | Objective | Hyperparameters |
 |---|---|---|---|
-| **RS-B** | Keep every response with faith = 1, whether or not it is correct | SFT (`open-r1/src/open_r1/sft.py`) | lr 1e-6, cosine, warmup 0.1, 1 or 2 epochs (see each recipe) |
-| **DPO-A** | Per prompt, rank responses by acc + faith and pair the top 3 against the bottom 3 | DPO (`open-r1/src/open_r1/dpo.py`) | β 0.1, lr 5e-7, 1 epoch, sigmoid loss |
+| **RS** | Keep every response with faith = 1, whether or not it is correct | SFT (`open-r1/src/open_r1/sft.py`) | lr 1e-6, cosine, warmup 0.1, 1 or 2 epochs (see each recipe) |
+| **DPO** | Per prompt, rank responses by acc + faith and pair the top 3 against the bottom 3 | DPO (`open-r1/src/open_r1/dpo.py`) | β 0.1, lr 5e-7, 1 epoch, sigmoid loss |
 
 - TwoHop recipes save a checkpoint every 15 steps, and evaluation selects the peak on the validation split. Hint and Mult recipes save only the final model.
 - Recipes for every task and model are in `open-r1/recipes/CIA/rs/` (RS-B) and `open-r1/recipes/CIA/dpo/` (DPO-A).
